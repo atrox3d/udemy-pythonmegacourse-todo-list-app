@@ -7,7 +7,6 @@ while True:
             todo = input("Enter a todo:") + "\n"
 
             file = open("todos.txt", 'r')           # FileNotFoundError if file does not exist
-
             todos = file.readlines()
             file.close()
 
@@ -15,7 +14,13 @@ while True:
             file.writelines(todos)
             file.close()
         case 'show':
-            pass
+            file = open("todos.txt", 'r')           # FileNotFoundError if file does not exist
+            todos = file.readlines()
+            file.close()
+
+            for index, item in enumerate(todos):
+                row = f'{index + 1}-{item}'
+                print(row)
         case 'edit':
             pass
         case 'complete':
