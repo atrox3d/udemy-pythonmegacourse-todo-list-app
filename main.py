@@ -4,7 +4,16 @@ while True:
     print(f'user action: {user_action}')
     match user_action:
         case 'add':
-            pass
+            todo = input("Enter a todo:") + "\n"
+
+            file = open("todos.txt", 'r')           # FileNotFoundError if file does not exist
+
+            todos = file.readlines()
+            file.close()
+
+            file = open("todos.txt", 'w')
+            file.writelines(todos)
+            file.close()
         case 'show':
             pass
         case 'edit':
