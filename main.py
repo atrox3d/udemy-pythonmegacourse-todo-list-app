@@ -31,8 +31,8 @@ while True:
             todos[number] = new_todo
 
         case 'complete':
-            pass
-
+            number = int(input("Number of the todo to edit: "))
+            todos.pop(number - 1)
         case 'exit':
             break
 
