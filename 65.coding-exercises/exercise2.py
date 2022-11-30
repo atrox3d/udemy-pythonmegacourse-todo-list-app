@@ -1,4 +1,4 @@
 file = open('essay.txt', 'r')
-text = file.readline()
+text = file.read()
 print(len(text))
 
