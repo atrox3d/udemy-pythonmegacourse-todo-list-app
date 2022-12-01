@@ -2,55 +2,56 @@ while True:
     user_action = input("Type add, show, edit, complete or exit: ").strip()
 
     print(f'user action: {user_action}')
-    match user_action:
 
-        case 'add':
-            todo = input("Enter a todo:") + "\n"
+    if 'add' in user_action:
+        todo = user_action[len('add') + 1:]
 
-            with open("todos.txt", 'r') as file:    # FileNotFoundError if file does not exist
-                todos = file.readlines()
+        with open("todos.txt", 'r') as file:    # FileNotFoundError if file does not exist
+            todos = file.readlines()
 
-            todos.append(todo)
+        todos.append(todo)
 
-            with open("todos.txt", 'w') as file:
-                file.writelines(todos)
+        with open("todos.txt", 'w') as file:
+            file.writelines(todos)
 
-        case 'show':
-            with open("todos.txt", 'r') as file:    # FileNotFoundError if file does not exist
-                todos = file.readlines()
+    elif 'show' in user_action:
+        with open("todos.txt", 'r') as file:    # FileNotFoundError if file does not exist
+            todos = file.readlines()
 
-            for index, item in enumerate(todos):
-                item = item.strip('\n')
-                row = f'{index + 1}-{item}'
-                print(row)
+        for index, item in enumerate(todos):
+            item = item.strip('\n')
+            row = f'{index + 1}-{item}'
+            print(row)
 
-        case 'edit':
-            number = int(input("Number of the todo to edit: "))
-            number -= 1
+    elif 'edit' in user_action:
+        number = int(user_action[len('edit') + 1:])
+        number -= 1
 
-            with open("todos.txt", 'r') as file:    # FileNotFoundError if file does not exist
-                todos = file.readlines()
+        with open("todos.txt", 'r') as file:    # FileNotFoundError if file does not exist
+            todos = file.readlines()
 
-            new_todo = input("Enter new todo:") + "\n"
-            todos[number] = new_todo
+        new_todo = input("Enter new todo:") + "\n"
+        todos[number] = new_todo
 
-            with open("todos.txt", 'w') as file:
-                file.writelines(todos)
+        with open("todos.txt", 'w') as file:
+            file.writelines(todos)
 
-        case 'complete':
-            number = int(input("Number of the todo to edit: "))
+    elif 'complete' in user_action:
+        number = int(user_action[len('complete') + 1:])
 
-            with open("todos.txt", 'r') as file:    # FileNotFoundError if file does not exist
-                todos = file.readlines()
+        with open("todos.txt", 'r') as file:    # FileNotFoundError if file does not exist
+            todos = file.readlines()
 
-            removed = todos.pop(number - 1).strip('\n')
+        removed = todos.pop(number - 1).strip('\n')
 
-            with open("todos.txt", 'w') as file:
-                file.writelines(todos)
+        with open("todos.txt", 'w') as file:
+            file.writelines(todos)
 
-            print(f"Todo {removed} was removed from the list")
+        print(f"Todo {removed} was removed from the list")
 
-        case 'exit':
-            break
+    elif 'exit' in user_action:
+        break
+    else:
+        print('Command is not valid')
 
 print('goodbye')
