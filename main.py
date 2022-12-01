@@ -43,10 +43,12 @@ while True:
             with open("todos.txt", 'r') as file:    # FileNotFoundError if file does not exist
                 todos = file.readlines()
 
-            todos.pop(number - 1)
+            removed = todos.pop(number - 1).strip('\n')
 
             with open("todos.txt", 'w') as file:
                 file.writelines(todos)
+
+            print(f"Todo {removed} was removed from the list")
 
         case 'exit':
             break
