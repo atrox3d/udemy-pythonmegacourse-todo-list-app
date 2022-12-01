@@ -27,12 +27,27 @@ while True:
         case 'edit':
             number = int(input("Number of the todo to edit: "))
             number -= 1
+
+            with open("todos.txt", 'r') as file:    # FileNotFoundError if file does not exist
+                todos = file.readlines()
+
             new_todo = input("Enter new todo:") + "\n"
             todos[number] = new_todo
 
+            with open("todos.txt", 'w') as file:
+                file.writelines(todos)
+
         case 'complete':
             number = int(input("Number of the todo to edit: "))
+
+            with open("todos.txt", 'r') as file:    # FileNotFoundError if file does not exist
+                todos = file.readlines()
+
             todos.pop(number - 1)
+
+            with open("todos.txt", 'w') as file:
+                file.writelines(todos)
+
         case 'exit':
             break
 
