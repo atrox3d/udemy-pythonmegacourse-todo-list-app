@@ -3,7 +3,7 @@ while True:
 
     print(f'user action: {user_action}')
 
-    if 'add' in user_action:
+    if user_action.startswith('add'):
         todo = user_action[len('add') + 1:]
 
         with open("todos.txt", 'r') as file:    # FileNotFoundError if file does not exist
@@ -14,7 +14,7 @@ while True:
         with open("todos.txt", 'w') as file:
             file.writelines(todos)
 
-    elif 'show' in user_action:
+    elif user_action.startswith('show'):
         with open("todos.txt", 'r') as file:    # FileNotFoundError if file does not exist
             todos = file.readlines()
 
@@ -23,7 +23,7 @@ while True:
             row = f'{index + 1}-{item}'
             print(row)
 
-    elif 'edit' in user_action:
+    elif user_action.startswith('edit'):
         number = int(user_action[len('edit') + 1:])
         number -= 1
 
@@ -36,7 +36,7 @@ while True:
         with open("todos.txt", 'w') as file:
             file.writelines(todos)
 
-    elif 'complete' in user_action:
+    elif user_action.startswith('complete'):
         number = int(user_action[len('complete') + 1:])
 
         with open("todos.txt", 'r') as file:    # FileNotFoundError if file does not exist
@@ -49,7 +49,7 @@ while True:
 
         print(f"Todo {removed} was removed from the list")
 
-    elif 'exit' in user_action:
+    elif user_action.startswith('exit'):
         break
     else:
         print('Command is not valid')
