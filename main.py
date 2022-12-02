@@ -1,7 +1,12 @@
-def get_todos(filename):
+def get_todos(filename="todos.txt"):
     with open(filename, 'r') as file:  # FileNotFoundError if file does not exist
         todos = file.readlines()
         return todos
+
+
+def write_todos(todos, filename="todos.txt"):
+    with open(filename, 'w') as file:
+        file.writelines(todos)
 
 
 while True:
@@ -10,16 +15,15 @@ while True:
     print(f'user action: {user_action}')
 
     if user_action.startswith('add'):
-        todo = user_action[len('add') + 1:]
+        todos = get_todos()
 
-        todos = get_todos("todos.txt")
+        todo = user_action[len('add') + 1:]
         todos.append(todo + "\n")
 
-        with open("todos.txt", 'w') as file:
-            file.writelines(todos)
+        write_todos(todos)
 
     elif user_action.startswith('show'):
-        todos = get_todos("todos.txt")
+        todos = get_todos()
 
         for index, item in enumerate(todos):
             item = item.strip('\n')
@@ -28,32 +32,29 @@ while True:
 
     elif user_action.startswith('edit'):
         try:
+            todos = get_todos()
+
             number = int(user_action[len('edit') + 1:])
             number -= 1
-
-            todos = get_todos("todos.txt")
-
             new_todo = input("Enter new todo: ") + "\n"
             todos[number] = new_todo
 
-            with open("todos.txt", 'w') as file:
-                file.writelines(todos)
+            write_todos(todos)
+
         except ValueError:
             print("your command is not valid.")
             continue
 
     elif user_action.startswith('complete'):
         try:
+            todos = get_todos()
+
             number = int(user_action[len('complete') + 1:])
-
-            todos = get_todos("todos.txt")
-
             removed = todos.pop(number - 1).strip('\n')
 
-            with open("todos.txt", 'w') as file:
-                file.writelines(todos)
-
+            write_todos(todos)
             print(f"Todo {removed} was removed from the list")
+
         except IndexError:
             print("There is no item with that number.")
             continue
