@@ -1,5 +1,5 @@
-def get_todos():
-    with open("todos.txt", 'r') as file:  # FileNotFoundError if file does not exist
+def get_todos(filename):
+    with open(filename, 'r') as file:  # FileNotFoundError if file does not exist
         todos = file.readlines()
         return todos
 
@@ -12,14 +12,14 @@ while True:
     if user_action.startswith('add'):
         todo = user_action[len('add') + 1:]
 
-        todos = get_todos()
+        todos = get_todos("todos.txt")
         todos.append(todo + "\n")
 
         with open("todos.txt", 'w') as file:
             file.writelines(todos)
 
     elif user_action.startswith('show'):
-        todos = get_todos()
+        todos = get_todos("todos.txt")
 
         for index, item in enumerate(todos):
             item = item.strip('\n')
@@ -31,7 +31,7 @@ while True:
             number = int(user_action[len('edit') + 1:])
             number -= 1
 
-            todos = get_todos()
+            todos = get_todos("todos.txt")
 
             new_todo = input("Enter new todo: ") + "\n"
             todos[number] = new_todo
@@ -46,7 +46,7 @@ while True:
         try:
             number = int(user_action[len('complete') + 1:])
 
-            todos = get_todos()
+            todos = get_todos("todos.txt")
 
             removed = todos.pop(number - 1).strip('\n')
 
