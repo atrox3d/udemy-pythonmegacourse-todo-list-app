@@ -1,4 +1,7 @@
-def get_todos(filename="todos.txt"):
+FILEPATH = "todos.txt"
+
+
+def get_todos(filename=FILEPATH):
     """
     return a list of to-do items read from a file
     """
@@ -7,7 +10,7 @@ def get_todos(filename="todos.txt"):
         return todos
 
 
-def write_todos(todos, filename="todos.txt"):
+def write_todos(todos, filename=FILEPATH):
     """
     write to-do items list to file
     """
@@ -15,3 +18,5 @@ def write_todos(todos, filename="todos.txt"):
         file.writelines(todos)
 
 
+if __name__ == '__main__':
+    print(get_todos())
