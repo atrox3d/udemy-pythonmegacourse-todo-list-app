@@ -1,5 +1,5 @@
 from bonus.converters14 import convert
-from bonus.parsers14 import parse_feet_inches
+from parsers14 import parse_feet_inches
 
 feet, inches = parse_feet_inches("3 12")
 meters = convert(feet, inches)
