@@ -25,10 +25,11 @@ window = sg.Window(
 
 while True:
     event, values = window.read()
-    print(f"event : {event}")
-    print(f"values: {values}")
+    print(f"INFO | event : {event}")
+    print(f"INFO | values: {values}")
     match event:
         case sg.WIN_CLOSED:
+            print("INFO | WIN_CLOSED event detected, closing...")
             break
 
         case 'Add':
