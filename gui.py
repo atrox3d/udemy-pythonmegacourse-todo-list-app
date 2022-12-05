@@ -44,6 +44,9 @@ while True:
         case 'Edit':
             todos = functions.get_todos()
 
+            if not len(values['todos']):
+                print(f"INFO | ignoring Edit event because values['todos'] is empty")
+                continue
             todo = values['todos'][0]
             new_todo = values['todo'] + "\n"
             index = todos.index(todo)
