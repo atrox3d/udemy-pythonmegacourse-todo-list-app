@@ -5,8 +5,9 @@ import pathlib
 def make_archive(filepaths, destdir):
     destpath = pathlib.Path(destdir, "compressed.zip")
     with zipfile.ZipFile(destpath, 'w') as archive:
-        for file in filepaths:
-            archive.write(file)
+        for filepath in filepaths:
+            filepath = pathlib.Path(filepath)
+            archive.write(filepath, arcname=filepath.name)
 
 
 if __name__ == '__main__':
