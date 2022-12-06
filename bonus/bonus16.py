@@ -42,4 +42,5 @@ while True:
             print("INFO | COMPRESS | DEST | ", folder)
             make_archive(files, folder)
             window["output"].update(value="compression complete")
+            print(window["output"] == output)
 window.close()
