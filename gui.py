@@ -8,7 +8,8 @@ sg.theme("Black")
 clock = sg.Text(time.strftime("%b %d, %Y %H:%M:%S"), key="clock")
 label = sg.Text("Enter a TODO:")
 inputbox = sg.InputText(tooltip="enter a TODO", key="todo")
-addbutton = sg.Button("Add")
+addbutton = sg.Button(key="Add", size=2, image_source="add.png",
+                      mouseover_colors="lightblue2", tooltip="Add TODO")
 completebutton = sg.Button("Complete")
 editbutton = sg.Button("Edit")
 exitbutton = sg.Button("Exit")
@@ -53,6 +54,10 @@ while True:
             break
 
         case 'Add':
+            if not values['todo']:
+                sg.popup("Please insert some text", font=("helvetica", 20))
+                break
+
             todos = functions.get_todos()
 
             new_todo = values['todo'] + "\n"
