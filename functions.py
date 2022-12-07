@@ -7,6 +7,7 @@ def get_todos(filename=FILEPATH):
     """
     with open(filename, 'r') as file:  # FileNotFoundError if file does not exist
         todos = file.readlines()
+        print(f"INFO | get_todos | {todos}")
         return todos
 
 
@@ -15,6 +16,7 @@ def write_todos(todos, filename=FILEPATH):
     write to-do items list to file
     """
     with open(filename, 'w') as file:
+        print(f"INFO | write_todos | {todos}")
         file.writelines(todos)
 
 
