@@ -17,14 +17,32 @@ st.title("My TODO App")
 st.subheader("this is my todo app")
 st.write("this app is to increase your productivity")
 
-for todo in todos:
-    st.checkbox(todo)
 
+def check(todo):
+    print("check", todo, st.session_state[todo])
+    if st.session_state[todo]:
+        print(f"remove '{todo}'")
+        todos.remove(todo)
+        print(todos)
+        functions.write_todos(todos)
+
+
+for todo in todos:
+    st.checkbox(
+        label=todo,
+        key=todo,
+        on_change=check,
+        args=(todo,)
+    )
+
+# https://github.com/streamlit/streamlit/issues/2209
+st.session_state.new_todo = ""
 st.text_input(
     label="Enter a TODO:",
     placeholder="Add new todo...",
     on_change=add_todo,
-    key="new_todo"
+    key="new_todo",
+
 )
 
 st.session_state
