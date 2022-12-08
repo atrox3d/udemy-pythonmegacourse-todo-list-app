@@ -2,13 +2,22 @@ import streamlit as st
 import functions
 
 
+st.messages = []
+def log(*items):
+    message = f"INFO | RUN | " + " | ".join(map(str, items))
+    # message
+    print(message)
+    st.messages = getattr(st, "messages", [])
+    st.messages.append(message)
+
+
+log("get_todos()")
 todos = functions.get_todos()
 
 
 def add_todo():
     new_todo = st.session_state["new_todo"] + '\n'
-    f"INFO | RUN | add_todo() | {new_todo}"
-    print(f"INFO | RUN | add_todo() | {new_todo}")
+    log("add_todo()", new_todo)
     todos.append(new_todo)
     functions.write_todos(todos)
 
@@ -19,9 +28,9 @@ st.write("this app is to increase your productivity")
 
 
 def check(todo):
-    print("check", todo, st.session_state[todo])
+    log("check", todo, st.session_state[todo])
     if st.session_state[todo]:
-        print(f"remove '{todo}'")
+        log("remove", todo)
         todos.remove(todo)
         print(todos)
         functions.write_todos(todos)
@@ -46,5 +55,8 @@ st.text_input(
 )
 
 st.session_state
-"INFO | RUN | end of script"
-print("INFO | RUN | end of script")
+
+log("INFO | RUN | end of script")
+for message in st.messages:
+    message
+# print("INFO | RUN | end of script")
