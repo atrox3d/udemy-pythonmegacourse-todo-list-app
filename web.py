@@ -2,41 +2,57 @@ import streamlit as st
 import functions
 
 
-todos = functions.get_todos()
+def log(*items):
+    message = f"INFO | RUN | " + " | ".join(map(str, items))
+    print(message)
+    st.messages = getattr(st, "messages", [])
+    st.messages.append(message)
 
 
 def add_todo():
     new_todo = st.session_state["new_todo"] + '\n'
-    print(f"INFO | RUN | add_todo() | {new_todo}")
+    log("add_todo", new_todo.strip())
     todos.append(new_todo)
     functions.write_todos(todos)
+    st.session_state.new_todo = ""
 
 
+log("--------------------------")
+log("start of script")
+log("--------------------------")
+todos = functions.get_todos()
+
+log("write headers")
 st.title("My TODO App")
 st.subheader("this is my todo app")
 st.write("this app is to increase your productivity")
 
+log("create checkboxes")
 for index, todo in enumerate(todos):
     checkbox = st.checkbox(label=todo, key=todo)
     if checkbox:
-        message = f"INFO | removing checkbox | {index} {checkbox} '{todo}'"
-        print(message)
+        log("removing checkbox", index, checkbox, todo.strip())
         todos.pop(index)
-        print(f"INFO | todos.pop({index}) | ", todos)
         functions.write_todos(todos)
         del st.session_state[todo]
-        print(st.session_state)
         st.experimental_rerun()
 
-st.session_state["new_todo"] = ""
+log("create input")
+# st.session_state.new_todo = ""
 st.text_input(
     label="Enter a TODO:",
     placeholder="Add new todo...",
     on_change=add_todo,
-    key="new_todo"
+    key="new_todo",
+    value=""
 )
 
 
+# st.session_state.eos = True
 "session_state", st.session_state
-print("INFO | RUN | end of script")
-print("--------------------------")
+log("--------------------------")
+log("end of script")
+log("--------------------------")
+# for message in st.messages:
+st.code("\n".join(st.messages))
+st.messages = []
