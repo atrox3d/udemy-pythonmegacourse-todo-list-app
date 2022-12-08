@@ -13,13 +13,13 @@ def save_camera_image(camera_image):
 
 def save_grayscale_image(gray_img, name):
     image_path = pathlib.Path("camera-photos", name)
-    gray_image_path = pathlib.Path(
+    image_path = pathlib.Path(
         image_path.parent,
         image_path.stem + "GRAY" + image_path.suffix
     )
-    gray_img.save(gray_image_path)
-    print(gray_image_path, "saved")
-    st.write(gray_image_path, "saved")
+    gray_img.save(image_path)
+    print(image_path, "saved")
+    st.write(image_path, "saved")
 
 
 with st.expander("Start Camera"):
